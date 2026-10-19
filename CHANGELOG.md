@@ -2,6 +2,40 @@
 
 Alle für Anwender relevanten Änderungen an TE.
 
+## v19.10.26 — Stand 2026-10-19
+
+### Geändert
+
+- **Die Anzeigekomponente heißt jetzt DFPanel** (`DFPanel.exe` statt
+  `View.exe`). TE startet sie neben sich; nach dem Aktualisieren kann die alte
+  `View.exe` gelöscht werden.
+
+### Neu
+
+- **Einstellungen direkt in TE bearbeiten:** `Strg+F7` öffnet die INI-Datei in
+  einem eigenen Dialog mit Syntaxfärbung. Nach dem Speichern greifen Tabs,
+  Umbruch, Ränder, Farben und Schrift sofort. Es wird keine zweite
+  Programminstanz mehr gestartet.
+- **DFPanel:** Pin-Schaltfläche direkt in jeder angezeigten Seite;
+  Rechtsklick-Menü als Windows-Menü mit Untermenüs und rechtsbündigen
+  Tastenkürzeln, folgt dem Dunkelmodus von Windows.
+- **Kurzhilfe `.cps`** (`Shift+F1`) mit allen Schlüsselwörtern und Links zu
+  den Beispielen gefüllt.
+- Der About-Dialog zeigt die Download-Adresse
+  <https://github.com/dai-info/te>; die Schaltfläche *GitHub dai-info*
+  öffnet sie. Die Kurzhilfen verweisen ebenfalls dorthin.
+
+### Verbessert
+
+- **Menüs verschlankt:** ungenutzte Bearbeiten-Funktionen (Convert, Enclose
+  Selection, Modify Lines, Align, Insert Tag, Zoom-Einträge, zweites
+  Standardschema) und ihre Tastenkürzel sind entfernt.
+- **Scintilla 5.6.7 und Lexilla 5.5.4**, WebView2-SDK aktualisiert.
+- `DFPanel.exe` trägt die Versionsnummer in den Dateieigenschaften, so lässt
+  sich ein Programmstand ohne Start prüfen.
+- INI-Dialog: `Esc` fügt kein Steuerzeichen mehr ein, beim Fokussieren wird
+  nicht mehr der gesamte Text markiert.
+
 ## v23.08.26 — Stand 2026-08-23
 
 Erste hier veröffentlichte Fassung. Sie fasst die Entwicklung des laufenden

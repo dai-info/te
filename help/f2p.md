@@ -33,3 +33,8 @@ normalem Text plus eingebetteten Steuersegmenten.
 
 - Quelle des Templates: Formular (`form.md`)
 - Verwandt: `.cps` ([`cps.md`](cps.md))
+
+---
+
+Download, Anleitung und Changelog: <https://github.com/dai-info/te>  
+Alle Programme: <https://github.com/dai-info>

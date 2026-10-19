@@ -34,3 +34,8 @@ Feld1,Feld2,UTF-8   {{T3-[S
 
 - Ergebnis: `.f2p` ([`f2p.md`](f2p.md))
 - Verwandt: `.cps` ([`cps.md`](cps.md))
+
+---
+
+Download, Anleitung und Changelog: <https://github.com/dai-info/te>  
+Alle Programme: <https://github.com/dai-info>
