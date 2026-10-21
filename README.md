@@ -16,7 +16,9 @@ Die aktuelle Version steht unter **[Releases](../../releases)** als ZIP-Paket be
 | `help\f2p.md` | Kurzhilfe zum Dateityp `.f2p` |
 | `help\form.md` | Kurzhilfe zu Formularquellen |
 
-**Installation:** ZIP in einen beliebigen Ordner entpacken — keine Installation, keine Admin-Rechte nötig. `TE.exe`, `DFPanel.exe` und der Ordner `help` müssen beieinander bleiben. Beim Aktualisieren einer älteren Version kann die alte `View.exe` gelöscht werden.
+**Installation:** ZIP in einen beliebigen Ordner entpacken — keine Installation, keine Admin-Rechte nötig.
+
+Schneller geht es mit **[DFUp](DFUp_Anleitung.md)**: eine Zeile in der Eingabeaufforderung holt TE und auf Wunsch auch F2P, CPS und DFCon aus den Releases in den df-Ordner und hält sie aktuell. `TE.exe`, `DFPanel.exe` und der Ordner `help` müssen beieinander bleiben. Beim Aktualisieren einer älteren Version kann die alte `View.exe` gelöscht werden.
 
 Im Menü `?` → *About* steht die Version; die Schaltfläche *GitHub dai-info* öffnet diese Seite.
 

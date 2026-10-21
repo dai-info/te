@@ -39,7 +39,9 @@ if (-not $sel) {
 }
 $sel = "$sel".Trim()
 if (-not $sel -or $sel -eq '0') { Write-Host 'Nichts gemacht.'; return }
+$sys32 = $sel -match '9'                       # 9 (nicht im Menue): TE.exe zusaetzlich nach System32
 $auswahl = if ($sel -match '7') { @($pakete.Keys) } else { @($sel.ToCharArray() | ForEach-Object { "$_" } | Where-Object { $pakete.Contains($_) }) }
+if ($sys32 -and $auswahl -notcontains '1') { $auswahl = @('1') + $auswahl }
 if (-not $auswahl) { Write-Host "Ungueltige Auswahl: $sel" -ForegroundColor Red; return }
 
 # --- Download ------------------------------------------------------------------
@@ -62,7 +64,7 @@ foreach ($k in $auswahl) {
       Move-Item $tmp $ziel -Force
       Remove-Item "$ziel.old" -Force -ErrorAction SilentlyContinue
       $kb = [int]((Get-Item $ziel).Length / 1KB)
-      Write-Host ("  {0,-14} {1,6} KB  ok" -f $f, $kb)
+      Write-Host ("  {0,-20} {1,6} KB  ok" -f $f, $kb)
     } catch {
       $fehler++
       Remove-Item $tmp -Force -ErrorAction SilentlyContinue
@@ -71,12 +73,26 @@ foreach ($k in $auswahl) {
   }
 }
 
-# --- PATH (Benutzer, ohne Admin) -----------------------------------------------
-$pfad = [Environment]::GetEnvironmentVariable('Path', 'User')
-if (($pfad -split ';') -notcontains $df) {
-  $neu = if ($pfad) { "$pfad;$df" } else { $df }
-  [Environment]::SetEnvironmentVariable('Path', $neu, 'User')
-  Write-Host "`n$df in den Benutzer-PATH eingetragen (gilt fuer neu geoeffnete Fenster)." -ForegroundColor Cyan
+# --- 9: TE.exe nach System32 (braucht Admin, fragt sonst per UAC nach) -----------
+if ($sys32 -and (Test-Path "$df\TE.exe")) {
+  $zielSys = Join-Path $env:windir 'System32\TE.exe'
+  Write-Host "`nTE.exe -> $zielSys" -ForegroundColor Yellow
+  $istAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+  try {
+    if ($istAdmin) {
+      if (Test-Path $zielSys) { Move-Item $zielSys "$zielSys.old" -Force }
+      Copy-Item "$df\TE.exe" $zielSys -Force
+      Remove-Item "$zielSys.old" -Force -ErrorAction SilentlyContinue
+    } else {
+      $cmd = "(if exist `"$zielSys`" move /y `"$zielSys`" `"$zielSys.old`") & copy /y `"$df\TE.exe`" `"$zielSys`" && (if exist `"$zielSys.old`" del /q `"$zielSys.old`")"
+      $pr = Start-Process cmd.exe -ArgumentList "/c $cmd" -Verb RunAs -Wait -PassThru
+      if ($pr.ExitCode -ne 0) { throw "cmd-Exitcode $($pr.ExitCode)" }
+    }
+    Write-Host "  kopiert, 'te' startet jetzt aus jedem Fenster"
+  } catch {
+    $fehler++
+    Write-Host "  FEHLER: $($_.Exception.Message)" -ForegroundColor Red
+  }
 }
 
 # --- dfup.cmd fuer spaetere Updates per Doppelklick ------------------------------
